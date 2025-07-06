@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      uri: "mongodb://localhost:27017/bookstore"
+
+server:
+  port: 8080
+  servlet:
+    context-path: /wise-man-bookstore-catalog/
