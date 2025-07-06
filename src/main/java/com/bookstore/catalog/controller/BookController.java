@@ -4,6 +4,7 @@ package com.bookstore.catalog.controller;
 import com.bookstore.catalog.dto.BookResponse;
 import com.bookstore.catalog.entity.BookEntity;
 import com.bookstore.catalog.service.BookService;
+import com.bookstore.catalog.service.OpenLibraryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,7 @@ public class BookController {
 
     private final BookService service;
 
-    public BookController(BookService service) {
+    public BookController(BookService service, OpenLibraryService openLibraryService) {
         this.service = service;
     }
 

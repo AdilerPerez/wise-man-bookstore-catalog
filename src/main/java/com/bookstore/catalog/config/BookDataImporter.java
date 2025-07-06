@@ -20,6 +20,7 @@ import java.util.Objects;
 @Log4j2
 public class BookDataImporter implements CommandLineRunner {
 
+    public static final int LINES_TO_SAVE = 7927;
     private final BookRepository bookRepository;
 
     public BookDataImporter(BookRepository bookRepository) {
@@ -28,7 +29,7 @@ public class BookDataImporter implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (bookRepository.count() != 0) {
+        if (bookRepository.count() == 0) {
             log.info("Database is empty. Starting data load...");
             loadBookDataFromCsv();
         } else {
@@ -54,9 +55,12 @@ public class BookDataImporter implements CommandLineRunner {
     private void processCSVLines(String[] line, List<BookEntity> booksToSave) {
         try {
             booksToSave.add(createBookEntity(line));
-            bookRepository.deleteAll();
-            bookRepository.saveAll(booksToSave);
-            log.info("Batch of {} books inserted.", booksToSave.size());
+
+            if (booksToSave.size() >= LINES_TO_SAVE) {
+                bookRepository.deleteAll();
+                bookRepository.saveAll(booksToSave);
+                log.info("Batch of {} books inserted.", LINES_TO_SAVE);
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             log.error("Malformed CSV line, skipping record: {}", String.join(",", line));
         }
