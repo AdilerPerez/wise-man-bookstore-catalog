@@ -57,7 +57,6 @@ public class BookDataImporter implements CommandLineRunner {
             booksToSave.add(createBookEntity(line));
 
             if (booksToSave.size() >= LINES_TO_SAVE) {
-                bookRepository.deleteAll();
                 bookRepository.saveAll(booksToSave);
                 log.info("Batch of {} books inserted.", LINES_TO_SAVE);
             }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+@RestController("/v1")
 public class UserController {
 
     private final AuthServiceImpl authService;
@@ -30,18 +30,18 @@ public class UserController {
     }
 
     @GetMapping("/user/recently-viewed")
-    public ResponseEntity<List<BookEntity>> getMyRecentlyViewedBooks(@AuthenticationPrincipal UserDetailsData user) {
-        var books = recentlyViewedService.getRecentlyViewedBooks(user.getUsername());
+    public ResponseEntity<List<BookEntity>> getMyRecentlyViewedBooks(@AuthenticationPrincipal UserDetailsData userDetails) {
+        var books = recentlyViewedService.getRecentlyViewedBooks(userDetails.getUsername());
         return ResponseEntity.ok(books);
     }
 
     @PostMapping("/auth/signin")
-    public ResponseEntity<JwtResponse> authenticateUser(@RequestBody LoginRequest user) {
-        return authService.authenticateUser(user);
+    public ResponseEntity<JwtResponse> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        return authService.authenticateUser(loginRequest);
     }
 
     @PostMapping("/auth/signup")
-    public ResponseEntity<String> registerUser(@RequestBody RegisterRequest user) {
-        return authService.registerUser(user);
+    public ResponseEntity<String> registerUser(@RequestBody RegisterRequest registerRequest) {
+        return authService.registerUser(registerRequest);
     }
 }

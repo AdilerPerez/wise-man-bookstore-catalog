@@ -10,7 +10,7 @@ spring:
 server:
   port: 8080
   servlet:
-    context-path: /wise-man-bookstore-catalog
+    context-path: /wise-man-bookstore-catalog/api
 
 jwt:
   secret: "u8Jk3v9Q2pLz6xY1sB4eT7wV0nHcR5mZqD1fG8aKjL2oP3sU"

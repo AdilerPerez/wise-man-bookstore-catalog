@@ -37,8 +37,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ResponseEntity<JwtResponse> authenticateUser(LoginRequest user) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+    public ResponseEntity<JwtResponse> authenticateUser(LoginRequest loginRequest) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -48,12 +48,12 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ResponseEntity<String> registerUser(RegisterRequest user) {
+    public ResponseEntity<String> registerUser(RegisterRequest registerRequest) {
         Set<String> roles = new HashSet<>();
         roles.add("ROLE_USER");
         UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(user.getUsername());
-        userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
+        userEntity.setUsername(registerRequest.getUsername());
+        userEntity.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         userEntity.setRoles(roles);
         userRepository.save(userEntity);
         return ResponseEntity.ok("User registered successfully!");

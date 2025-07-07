@@ -4,11 +4,9 @@ package com.bookstore.catalog.controller;
 import com.bookstore.catalog.dto.BookResponse;
 import com.bookstore.catalog.dto.UserDetailsData;
 import com.bookstore.catalog.entity.BookEntity;
-import com.bookstore.catalog.entity.UserEntity;
 import com.bookstore.catalog.service.BookService;
 import com.bookstore.catalog.service.OpenLibraryService;
 import lombok.extern.log4j.Log4j2;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController("/v1")
 @Log4j2
 public class BookController {
 

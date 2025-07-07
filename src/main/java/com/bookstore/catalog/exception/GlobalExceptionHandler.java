@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
         ErrorResponseObject errorResponse = new ErrorResponseObject(
                 HttpStatus.UNAUTHORIZED.value(),
                 new Timestamp(System.currentTimeMillis()).toLocalDateTime(),
-                "Credenciais inválidas.",
+                "Bad Credentials.",
                 request.getDescription(false));
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
         ErrorResponseObject errorResponse = new ErrorResponseObject(
                 HttpStatus.CONFLICT.value(),
                 new Timestamp(System.currentTimeMillis()).toLocalDateTime(),
-                "Usuário ou e-mail já cadastrado.",
+                "User already exists.",
                 request.getDescription(false));
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
@@ -60,7 +60,7 @@ public class GlobalExceptionHandler {
         String message = exception.getBindingResult().getFieldErrors().stream()
                 .map(e -> e.getField() + ": " + e.getDefaultMessage())
                 .findFirst()
-                .orElse("Dados inválidos.");
+                .orElse("Invalid value.");
         ErrorResponseObject errorResponse = new ErrorResponseObject(
                 HttpStatus.BAD_REQUEST.value(),
                 new Timestamp(System.currentTimeMillis()).toLocalDateTime(),
@@ -74,7 +74,7 @@ public class GlobalExceptionHandler {
         ErrorResponseObject errorResponse = new ErrorResponseObject(
                 HttpStatus.BAD_REQUEST.value(),
                 new Timestamp(System.currentTimeMillis()).toLocalDateTime(),
-                "Formato de requisição inválido.",
+                "Failed to parse the request body.",
                 request.getDescription(false));
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
