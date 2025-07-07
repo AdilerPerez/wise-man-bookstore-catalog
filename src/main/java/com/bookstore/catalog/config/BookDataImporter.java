@@ -20,7 +20,7 @@ import java.util.Objects;
 @Log4j2
 public class BookDataImporter implements CommandLineRunner {
 
-    public static final int LINES_TO_SAVE = 7927;
+    public static final int LINES_TO_SAVE = 6810;
     private final BookRepository bookRepository;
 
     public BookDataImporter(BookRepository bookRepository) {
@@ -29,7 +29,7 @@ public class BookDataImporter implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (bookRepository.count() == 0) {
+        if (bookRepository.count() != 0) {
             log.info("Database is empty. Starting data load...");
             loadBookDataFromCsv();
         } else {
@@ -74,9 +74,15 @@ public class BookDataImporter implements CommandLineRunner {
 
     private BookEntity createBookEntity(String[] line) {
         var bookEntity = new BookEntity();
-        bookEntity.setTitle(line[1]);
-        bookEntity.setAuthor(line[2]);
-        bookEntity.setGenre(line[3]);
+        bookEntity.setIsbn13(line[0]);
+        bookEntity.setIsbn10(line[1]);
+        bookEntity.setTitle(line[2]);
+        bookEntity.setSubtitle(line[3]);
+        bookEntity.setAuthor(line[4]);
+        bookEntity.setGenre(line[5]);
+        bookEntity.setDescription(line[7]);
+        bookEntity.setPublishedYear(line[8]);
+        bookEntity.setAverageRating(line[9]);
         return bookEntity;
     }
 

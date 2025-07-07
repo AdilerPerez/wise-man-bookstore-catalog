@@ -5,6 +5,7 @@ import com.bookstore.catalog.dto.BookResponse;
 import com.bookstore.catalog.entity.BookEntity;
 import com.bookstore.catalog.service.BookService;
 import com.bookstore.catalog.service.OpenLibraryService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Log4j2
 public class BookController {
 
     private final BookService service;
@@ -22,17 +24,20 @@ public class BookController {
 
     @GetMapping("/books")
     public ResponseEntity<BookResponse> getAllBooks(@RequestParam int page, @RequestParam int size) {
+        log.info("Getting all books from database...");
         return ResponseEntity.ok(service.getAllBooks(page, size));
     }
 
 
     @GetMapping("/books/{id}")
     public ResponseEntity<BookEntity> getBookById(@PathVariable String id) {
+        log.info("Getting book by id: {}", id);
         return ResponseEntity.ok(service.getBookById(id));
     }
 
     @GetMapping("/books/genre/{genre}")
     public ResponseEntity<BookResponse> getBooksByGenre(@PathVariable String genre, @RequestParam int page, @RequestParam int size) {
+        log.info("Getting books by genre: {}", genre);
         BookResponse bookResponse = service.getBooksByGenre(genre, page, size);
         if (bookResponse != null) {
             return ResponseEntity.ok(bookResponse);
@@ -43,6 +48,7 @@ public class BookController {
 
     @GetMapping("/books/author/{author}")
     public ResponseEntity<BookResponse> getBooksByAuthor(@PathVariable String author, @RequestParam int page, @RequestParam int size) {
+        log.info("Getting books by author: {}", author);
         BookResponse bookResponse = service.getBooksByAuthor(author, page, size);
         if (bookResponse != null) {
             return ResponseEntity.ok(bookResponse);
