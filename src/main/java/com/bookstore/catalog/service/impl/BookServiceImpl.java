@@ -1,11 +1,14 @@
 package com.bookstore.catalog.service.impl;
 
 import com.bookstore.catalog.dto.BookResponse;
+import com.bookstore.catalog.dto.UserDetailsData;
 import com.bookstore.catalog.entity.BookEntity;
 import com.bookstore.catalog.exception.BookNotFoundException;
 import com.bookstore.catalog.repository.BookRepository;
 import com.bookstore.catalog.service.BookService;
+import com.bookstore.catalog.service.RecentlyViewedService;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,9 +19,12 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository repository;
+    private final RecentlyViewedService recentlyViewedService;
 
-    public BookServiceImpl(BookRepository repository) {
+    @Autowired
+    public BookServiceImpl(BookRepository repository, RecentlyViewedService recentlyViewedService) {
         this.repository = repository;
+        this.recentlyViewedService = recentlyViewedService;
     }
 
     @Override
@@ -30,13 +36,17 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Cacheable(value = "books", key = "#id")
-    public BookEntity getBookById(String id) {
+    public BookEntity getBookById(String id, UserDetailsData userData) {
         log.info("Searching for book with ID: {}", id);
         BookEntity book = repository.findById(id).orElseThrow(() -> {
             log.warn("Book not found for ID: {}", id);
             return new BookNotFoundException("Book not found with ID: " + id);
         });
-        log.info("Book found: {}", book);
+
+        if (userData != null) {
+            recentlyViewedService.addBookToUserHistory(userData.getUsername(), book);
+        }
+
         return book;
     }
 

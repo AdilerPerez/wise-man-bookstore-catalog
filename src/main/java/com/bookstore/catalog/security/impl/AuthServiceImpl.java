@@ -1,10 +1,13 @@
 package com.bookstore.catalog.security.impl;
 
 import com.bookstore.catalog.dto.JwtResponse;
+import com.bookstore.catalog.dto.LoginRequest;
+import com.bookstore.catalog.dto.RegisterRequest;
 import com.bookstore.catalog.entity.UserEntity;
 import com.bookstore.catalog.repository.UserRepository;
 import com.bookstore.catalog.security.AuthService;
 import com.bookstore.catalog.security.JwtService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,6 +28,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
+    @Autowired
     public AuthServiceImpl(AuthenticationManager authenticationManager, UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
@@ -33,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ResponseEntity<JwtResponse> authenticateUser(UserEntity user) {
+    public ResponseEntity<JwtResponse> authenticateUser(LoginRequest user) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -44,12 +48,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ResponseEntity<String> registerUser(UserEntity user) {
+    public ResponseEntity<String> registerUser(RegisterRequest user) {
         Set<String> roles = new HashSet<>();
         roles.add("ROLE_USER");
-        user.setRoles(roles);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername(user.getUsername());
+        userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
+        userEntity.setRoles(roles);
+        userRepository.save(userEntity);
         return ResponseEntity.ok("User registered successfully!");
     }
 }
