@@ -9,7 +9,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,20 +22,20 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Cacheable(value = "books", key = "'all_' + #page + '_' + #size")
     public BookResponse getAllBooks(int page, int size) {
         log.info("Fetching all books - page: {}, size: {}", page, size);
-        return createBookResponse(repository.findAll(createPageable(page, size)));
+        return createBookResponse(repository.findAll(PageRequest.of(page, size)));
     }
 
     @Override
     @Cacheable(value = "books", key = "#id")
     public BookEntity getBookById(String id) {
         log.info("Searching for book with ID: {}", id);
-        BookEntity book = repository.findById(id)
-                .orElseThrow(() -> {
-                    log.warn("Book not found for ID: {}", id);
-                    return new BookNotFoundException("Book not found");
-                });
+        BookEntity book = repository.findById(id).orElseThrow(() -> {
+            log.warn("Book not found for ID: {}", id);
+            return new BookNotFoundException("Book not found with ID: " + id);
+        });
         log.info("Book found: {}", book);
         return book;
     }
@@ -45,18 +44,24 @@ public class BookServiceImpl implements BookService {
     @Cacheable(value = "books", key = "#genre + '_' + #page + '_' + #size")
     public BookResponse getBooksByGenre(String genre, int page, int size) {
         log.info("Filtering books by genre: '{}' - page: {}, size: {}", genre, page, size);
-        return createBookResponse(repository.findByGenreContainingIgnoreCase(genre, createPageable(page, size)));
+        Page<BookEntity> books = repository.findByGenreContainingIgnoreCase(genre, PageRequest.of(page, size));
+        if (books.isEmpty()) {
+            log.warn("No books found for genre: '{}'", genre);
+            throw new BookNotFoundException("No books found for genre: " + genre);
+        }
+        return createBookResponse(books);
     }
 
     @Override
     @Cacheable(value = "books", key = "#author + '_' + #page + '_' + #size")
     public BookResponse getBooksByAuthor(String author, int page, int size) {
         log.info("Filtering books by author: '{}' - page: {}, size: {}", author, page, size);
-        return createBookResponse(repository.findByAuthorContainingIgnoreCase(author, createPageable(page, size)));
-    }
-
-    private Pageable createPageable(int page, int size) {
-        return PageRequest.of(page, size);
+        Page<BookEntity> books = repository.findByAuthorContainingIgnoreCase(author, PageRequest.of(page, size));
+        if (books.isEmpty()) {
+            log.warn("No books found for author: '{}'", author);
+            throw new BookNotFoundException("No books found for author: " + author);
+        }
+        return createBookResponse(books);
     }
 
     private BookResponse createBookResponse(Page<BookEntity> bookEntityPage) {

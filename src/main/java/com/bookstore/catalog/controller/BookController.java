@@ -23,7 +23,7 @@ public class BookController {
     }
 
     @GetMapping("/books")
-    public ResponseEntity<BookResponse> getAllBooks(@RequestParam int page, @RequestParam int size) {
+    public ResponseEntity<BookResponse> getAllBooks(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         log.info("Getting all books from database...");
         return ResponseEntity.ok(service.getAllBooks(page, size));
     }
@@ -36,25 +36,18 @@ public class BookController {
     }
 
     @GetMapping("/books/genre/{genre}")
-    public ResponseEntity<BookResponse> getBooksByGenre(@PathVariable String genre, @RequestParam int page, @RequestParam int size) {
+    public ResponseEntity<BookResponse> getBooksByGenre(@PathVariable String genre, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         log.info("Getting books by genre: {}", genre);
         BookResponse bookResponse = service.getBooksByGenre(genre, page, size);
-        if (bookResponse != null) {
-            return ResponseEntity.ok(bookResponse);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(bookResponse);
     }
 
     @GetMapping("/books/author/{author}")
-    public ResponseEntity<BookResponse> getBooksByAuthor(@PathVariable String author, @RequestParam int page, @RequestParam int size) {
+    public ResponseEntity<BookResponse> getBooksByAuthor(@PathVariable String author, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         log.info("Getting books by author: {}", author);
         BookResponse bookResponse = service.getBooksByAuthor(author, page, size);
-        if (bookResponse != null) {
-            return ResponseEntity.ok(bookResponse);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(bookResponse);
     }
+
 
 }

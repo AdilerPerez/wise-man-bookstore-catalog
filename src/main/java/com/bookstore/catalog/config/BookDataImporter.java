@@ -29,7 +29,7 @@ public class BookDataImporter implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (bookRepository.count() != 0) {
+        if (bookRepository.count() == 0) {
             log.info("Database is empty. Starting data load...");
             loadBookDataFromCsv();
         } else {

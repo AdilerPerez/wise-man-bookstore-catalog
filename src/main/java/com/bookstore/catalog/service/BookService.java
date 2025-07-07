@@ -3,7 +3,6 @@ package com.bookstore.catalog.service;
 
 import com.bookstore.catalog.dto.BookResponse;
 import com.bookstore.catalog.entity.BookEntity;
-import org.springframework.stereotype.Service;
 
 public interface BookService {
     BookResponse getAllBooks(int page, int size);

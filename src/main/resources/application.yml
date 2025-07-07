@@ -2,6 +2,7 @@ spring:
   data:
     mongodb:
       uri: "mongodb://localhost:27017/bookstore"
+      auto-index-creation: true
     redis:
       host: localhost
       port: 6379
@@ -11,3 +12,7 @@ server:
   servlet:
     context-path: /wise-man-bookstore-catalog/
 
+jwt:
+  secret: "u8Jk3v9Q2pLz6xY1sB4eT7wV0nHcR5mZqD1fG8aKjL2oP3sU"
+  expiration: 3600000
+  refresh-token-expiration: 604800000
