@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookRepository extends MongoRepository<BookEntity, String> {
-    Page<BookEntity> findByGenre(@Param("genres") String genres, Pageable pageable);
-    Page<BookEntity> findByAuthor(@Param("author")String author, Pageable pageable);
+    Page<BookEntity> findByGenreContainingIgnoreCase(@Param("genre") String genre, Pageable pageable);
+    Page<BookEntity> findByAuthorContainingIgnoreCase(@Param("author")String author, Pageable pageable);
 }
