@@ -1,20 +1,14 @@
 package com.bookstore.catalog.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Set;
-
 @Data
-public class RegisterRequest {
-
+@AllArgsConstructor
+public class LoginRequestDTO {
     @NotBlank
     private String username;
     @NotBlank
     private String password;
-    @Email
-    @NotBlank
-    private String email;
-    private Set<String> roles;
 }

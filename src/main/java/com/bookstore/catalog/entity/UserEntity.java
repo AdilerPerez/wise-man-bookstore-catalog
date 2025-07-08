@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Set;
 
 @Getter
@@ -28,6 +29,6 @@ public class UserEntity implements Serializable {
 
     private String password;
 
-    private Set<String> roles;
+    private Set<String> roles = Collections.emptySet();
 
 }

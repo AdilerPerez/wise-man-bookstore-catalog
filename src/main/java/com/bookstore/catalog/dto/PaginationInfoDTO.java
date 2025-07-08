@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
-public class PaginationInfo implements Serializable {
+public class PaginationInfoDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private int page;

@@ -69,6 +69,9 @@ public class JwtServiceImpl implements JwtService {
 
     @Override
     public Key getSignInKey() {
+        if (jwtSecret == null || jwtSecret.isEmpty()) {
+            throw new IllegalArgumentException("JWT secret cannot be null or empty");
+        }
         byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
         return Keys.hmacShaKeyFor(keyBytes);
     }
