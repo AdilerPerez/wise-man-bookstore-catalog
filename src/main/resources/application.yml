@@ -1,5 +1,5 @@
 jwt:
-  secret: ${JWT_SECRET:mySecretKey123456789012345678901234567890}
+  secret: ${JWT_SECRET:dGhpc2lzYXZlcnlsb25nYW5kc2VjdXJla2V5Zm9yand0dG9rZW5zaWduaXR1cmVhbmRpdGlzZ3JlYXRlcnRoYW4yNTZiaXRz}
   expiration: ${JWT_EXPIRATION:86400000}
   refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
 

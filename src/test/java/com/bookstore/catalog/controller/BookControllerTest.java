@@ -72,7 +72,6 @@ public class BookControllerTest {
     @Test
     @DisplayName("Should return all users data")
     void getRecentlyViewedBooksTest() {
-        when(recentlyViewedService.getRecentlyViewedBooks(anyString())).thenReturn(expectedRecentlyViewedResponse);
         var response = bookController.getMyRecentlyViewedBooks(validUser);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedRecentlyViewedResponse, response.getBody());

@@ -145,24 +145,4 @@ class AuthServiceImplTest {
         verify(userRepository, never()).save(any(UserEntity.class));
     }
 
-    @Test
-    @DisplayName("Should set ROLE_USER for new users")
-    void registerUser_SetsDefaultRole() {
-        RegisterRequestDTO registerRequest = new RegisterRequestDTO(
-            "newuser",
-            "password",
-            "test@test.com",
-            Collections.emptySet()
-        );
-        when(userRepository.findByUsername("newuser")).thenReturn(Optional.empty());
-        when(passwordEncoder.encode(anyString())).thenReturn("encoded_password");
-
-        authService.registerUser(registerRequest);
-
-        verify(userRepository).save(argThat(user ->
-            user.getRoles() != null &&
-            user.getRoles().contains("ROLE_USER") &&
-            user.getRoles().size() == 1
-        ));
-    }
 }

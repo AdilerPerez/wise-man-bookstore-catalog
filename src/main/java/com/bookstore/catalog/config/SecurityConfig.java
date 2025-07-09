@@ -1,6 +1,6 @@
 package com.bookstore.catalog.config;
 
-import com.bookstore.catalog.security.impl.JwtAuthFilter;
+import com.bookstore.catalog.security.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

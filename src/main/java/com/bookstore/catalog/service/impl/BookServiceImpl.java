@@ -75,6 +75,7 @@ public class BookServiceImpl implements BookService {
         return createBookResponse(books);
     }
 
+
     private BookListResponseDTO createBookResponse(Page<BookEntity> bookEntityPage) {
         log.debug("Creating book response for page: {}", bookEntityPage.getNumber());
         return new BookListResponseDTO(bookEntityPage);

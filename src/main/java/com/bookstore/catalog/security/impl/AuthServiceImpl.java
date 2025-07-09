@@ -51,14 +51,16 @@ public class AuthServiceImpl implements AuthService {
         if (userRepository.findByUsername(registerRequest.getUsername()).isPresent()) {
             throw new IllegalArgumentException("Username already exists");
         }
-        Set<String> roles = new HashSet<>();
-        roles.add("ROLE_USER");
+
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(registerRequest.getUsername());
+        userEntity.setEmail(registerRequest.getEmail());
         userEntity.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        userEntity.setRoles(roles);
-        userRepository.save(userEntity);
 
+        Set<String> roles = new HashSet<>(registerRequest.getRoles());
+        userEntity.setRoles(roles);
+
+        userRepository.save(userEntity);
         return mapper.toUserResponse(userEntity);
     }
 }
