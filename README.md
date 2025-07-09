@@ -7,10 +7,10 @@
 ## 📋 Sumário
 
 - [Descrição Geral](#descrição-geral)  
-- [Arquitetura de Solução e Arquitetura Técnica](#i-arquitetura-de-solução-e-arquitetura-técnica)  
-- [Explicação sobre o Case Desenvolvido (Plano de Implementação)](#ii-explicação-sobre-o-case-desenvolvido-plano-de-implementação)  
-- [Melhorias e Considerações Finais](#iii-melhorias-e-considerações-finais)  
-- [Como Executar](#como-executar)  
+- [Arquitetura de Solução e Arquitetura Técnica](#arquitetura-de-solução-e-arquitetura-técnica)  
+- [Explicação sobre o Case Desenvolvido (Plano de Implementação)](#explicação-sobre-o-case-desenvolvido-plano-de-implementação)  
+- [Melhorias e Considerações Finais](#melhorias-e-considerações-finais)  
+- [Como Executar](#como-executar-o-projeto)  
 
 ---
 
