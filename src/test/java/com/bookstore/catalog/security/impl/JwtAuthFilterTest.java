@@ -1,9 +1,9 @@
 package com.bookstore.catalog.security.impl;
 
+import com.bookstore.catalog.security.JwtAuthFilter;
 import com.bookstore.catalog.security.JwtService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,6 +1,5 @@
-package com.bookstore.catalog.security.impl;
+package com.bookstore.catalog.security;
 
-import com.bookstore.catalog.security.JwtService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
