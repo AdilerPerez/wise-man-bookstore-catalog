@@ -26,6 +26,25 @@ springdoc:
     disable-swagger-default-url: true
     display-request-duration: true
 
+# Health Check Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+  health:
+    mongo:
+      enabled: true
+    redis:
+      enabled: false
+    redis-reactive:
+      enabled: false
+
 logging:
   level:
     org.springdoc: DEBUG

@@ -1,0 +1,37 @@
+spring:
+  data:
+    mongodb:
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/bookstore}
+      auto-index-creation: true
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+
+server:
+  port: 8080
+  servlet:
+    context-path: /wise-man-bookstore-catalog/
+
+jwt:
+  secret: ${JWT_SECRET:dGhpc2lzYXZlcnlsb25nYW5kc2VjdXJla2V5Zm9yand0dG9rZW5zaWduaXR1cmVhbmRpdGlzZ3JlYXRlcnRoYW4yNTZiaXRz}
+  expiration: ${JWT_EXPIRATION:86400000}
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    resolve-schema-properties: true
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    display-request-duration: true
+
+logging:
+  level:
+    org.springdoc: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.data.mongodb: DEBUG
+    org.mongodb: DEBUG
+    org.springframework.boot.autoconfigure: DEBUG
+    org.springframework.boot.web.servlet.context: DEBUG
+    com.bookstore.catalog.exception: DEBUG
