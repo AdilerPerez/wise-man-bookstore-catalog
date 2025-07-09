@@ -13,4 +13,5 @@ public interface BookService {
     BookListResponseDTO getBooksByGenre(String genre, int page, int size);
 
     BookListResponseDTO getBooksByAuthor(String author, int page, int size);
+
 }
