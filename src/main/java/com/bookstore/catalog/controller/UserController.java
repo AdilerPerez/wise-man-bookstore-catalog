@@ -1,47 +1,50 @@
 package com.bookstore.catalog.controller;
 
-import com.bookstore.catalog.dto.JwtResponse;
-import com.bookstore.catalog.dto.LoginRequest;
-import com.bookstore.catalog.dto.RegisterRequest;
-import com.bookstore.catalog.entity.BookEntity;
-import com.bookstore.catalog.dto.UserDetailsData;
+import com.bookstore.catalog.dto.JwtResponseDTO;
+import com.bookstore.catalog.dto.LoginRequestDTO;
+import com.bookstore.catalog.dto.RegisterRequestDTO;
+import com.bookstore.catalog.dto.UserResponseDTO;
+import com.bookstore.catalog.exception.ErrorResponseObject;
 import com.bookstore.catalog.security.impl.AuthServiceImpl;
-import com.bookstore.catalog.service.RecentlyViewedService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController("/v1")
+@RequestMapping("/api/v1/")
+@RestController
+@Tag(name = "Authentication", description = "Endpoints for user authentication and registration")
 public class UserController {
 
-    private final AuthServiceImpl authService;
-    private final RecentlyViewedService recentlyViewedService;
-
     @Autowired
-    public UserController(AuthServiceImpl authService, RecentlyViewedService recentlyViewedService) {
-        this.authService = authService;
-        this.recentlyViewedService = recentlyViewedService;
-    }
+    private AuthServiceImpl authService;
 
-    @GetMapping("/user/recently-viewed")
-    public ResponseEntity<List<BookEntity>> getMyRecentlyViewedBooks(@AuthenticationPrincipal UserDetailsData userDetails) {
-        var books = recentlyViewedService.getRecentlyViewedBooks(userDetails.getUsername());
-        return ResponseEntity.ok(books);
-    }
-
+    @Operation(summary = "Authenticate user", description = "Takes credentials and returns JWT token")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Authentication successful",
+                    content = @Content(schema = @Schema(implementation = JwtResponseDTO.class))),
+            @ApiResponse(responseCode = "401", description = "Invalid credentials",
+                    content = @Content(schema = @Schema(implementation = ErrorResponseObject.class)))
+    })
     @PostMapping("/auth/signin")
-    public ResponseEntity<JwtResponse> authenticateUser(@RequestBody LoginRequest loginRequest) {
-        return authService.authenticateUser(loginRequest);
+    public ResponseEntity<JwtResponseDTO> authenticateUser(@RequestBody LoginRequestDTO loginRequest) {
+        return ResponseEntity.ok().body(authService.authenticateUser(loginRequest));
     }
 
+    @Operation(summary = "Register new user", description = "Creates a new user in the system")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User registered successfully",
+                    content = @Content(schema = @Schema(implementation = UserResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid data or username already exists",
+            content =  @Content(schema = @Schema(implementation = ErrorResponseObject.class)))
+    })
     @PostMapping("/auth/signup")
-    public ResponseEntity<String> registerUser(@RequestBody RegisterRequest registerRequest) {
-        return authService.registerUser(registerRequest);
+    public ResponseEntity<UserResponseDTO> registerUser(@RequestBody RegisterRequestDTO registerRequest) {
+        return ResponseEntity.ok().body(authService.registerUser(registerRequest));
     }
 }

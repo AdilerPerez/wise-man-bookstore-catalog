@@ -1,14 +1,15 @@
 package com.bookstore.catalog.security.impl;
 
-import com.bookstore.catalog.dto.JwtResponse;
-import com.bookstore.catalog.dto.LoginRequest;
-import com.bookstore.catalog.dto.RegisterRequest;
+import com.bookstore.catalog.dto.JwtResponseDTO;
+import com.bookstore.catalog.dto.LoginRequestDTO;
+import com.bookstore.catalog.dto.RegisterRequestDTO;
+import com.bookstore.catalog.dto.UserResponseDTO;
 import com.bookstore.catalog.entity.UserEntity;
+import com.bookstore.catalog.mapper.UserMapper;
 import com.bookstore.catalog.repository.UserRepository;
 import com.bookstore.catalog.security.AuthService;
 import com.bookstore.catalog.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,32 +24,33 @@ import java.util.Set;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private final AuthenticationManager authenticationManager;
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
-
     @Autowired
-    public AuthServiceImpl(AuthenticationManager authenticationManager, UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
-        this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-    }
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtService jwtService;
+    @Autowired
+    private UserMapper mapper;
 
     @Override
-    public ResponseEntity<JwtResponse> authenticateUser(LoginRequest loginRequest) {
+    public JwtResponseDTO authenticateUser(LoginRequestDTO loginRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String jwt = jwtService.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(jwt));
+        return new JwtResponseDTO(jwt);
     }
 
     @Override
-    public ResponseEntity<String> registerUser(RegisterRequest registerRequest) {
+    public UserResponseDTO registerUser(RegisterRequestDTO registerRequest) {
+        if (userRepository.findByUsername(registerRequest.getUsername()).isPresent()) {
+            throw new IllegalArgumentException("Username already exists");
+        }
         Set<String> roles = new HashSet<>();
         roles.add("ROLE_USER");
         UserEntity userEntity = new UserEntity();
@@ -56,6 +58,7 @@ public class AuthServiceImpl implements AuthService {
         userEntity.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         userEntity.setRoles(roles);
         userRepository.save(userEntity);
-        return ResponseEntity.ok("User registered successfully!");
+
+        return mapper.toUserResponse(userEntity);
     }
 }

@@ -1,16 +1,16 @@
 package com.bookstore.catalog.service;
 
 
-import com.bookstore.catalog.dto.BookResponse;
-import com.bookstore.catalog.dto.UserDetailsData;
-import com.bookstore.catalog.entity.BookEntity;
+import com.bookstore.catalog.dto.BookIdResponseDTO;
+import com.bookstore.catalog.dto.BookListResponseDTO;
+import com.bookstore.catalog.security.impl.UserDetailsImpl;
 
 public interface BookService {
-    BookResponse getAllBooks(int page, int size);
+    BookListResponseDTO getAllBooks(int page, int size);
 
-    BookEntity getBookById(String id, UserDetailsData userData);
+    BookIdResponseDTO getBookById(String id, UserDetailsImpl userData);
 
-    BookResponse getBooksByGenre(String genre, int page, int size);
+    BookListResponseDTO getBooksByGenre(String genre, int page, int size);
 
-    BookResponse getBooksByAuthor(String author, int page, int size);
+    BookListResponseDTO getBooksByAuthor(String author, int page, int size);
 }

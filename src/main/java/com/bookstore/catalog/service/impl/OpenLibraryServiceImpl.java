@@ -15,12 +15,8 @@ import java.time.Duration;
 @Service
 public class OpenLibraryServiceImpl implements OpenLibraryService {
 
-    private final HttpClient httpClient;
-
     @Autowired
-    public OpenLibraryServiceImpl(HttpClient httpClient) {
-        this.httpClient = httpClient;
-    }
+    private HttpClient httpClient;
 
     @Override
     public String searchByQuery(String query) {

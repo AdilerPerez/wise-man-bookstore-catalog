@@ -1,14 +1,14 @@
 package com.bookstore.catalog.security;
 
-import com.bookstore.catalog.dto.JwtResponse;
-import com.bookstore.catalog.dto.LoginRequest;
-import com.bookstore.catalog.dto.RegisterRequest;
-import org.springframework.http.ResponseEntity;
+import com.bookstore.catalog.dto.JwtResponseDTO;
+import com.bookstore.catalog.dto.LoginRequestDTO;
+import com.bookstore.catalog.dto.RegisterRequestDTO;
+import com.bookstore.catalog.dto.UserResponseDTO;
 
 public interface AuthService {
 
-    ResponseEntity<JwtResponse> authenticateUser(LoginRequest user);
+    JwtResponseDTO authenticateUser(LoginRequestDTO user);
 
-    ResponseEntity<String> registerUser(RegisterRequest user);
+    UserResponseDTO registerUser(RegisterRequestDTO user);
 
 }

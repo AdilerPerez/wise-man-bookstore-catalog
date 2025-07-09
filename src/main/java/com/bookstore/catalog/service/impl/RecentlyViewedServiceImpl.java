@@ -17,14 +17,11 @@ import java.util.Set;
 public class RecentlyViewedServiceImpl implements RecentlyViewedService {
 
     private static final int MAX_VIEWED_BOOKS = 10;
-    private final RedisTemplate<String, String> redisTemplate;
-    private final ObjectMapper objectMapper;
 
     @Autowired
-    public RecentlyViewedServiceImpl(RedisTemplate<String, String> redisTemplate, ObjectMapper objectMapper) {
-        this.redisTemplate = redisTemplate;
-        this.objectMapper = objectMapper;
-    }
+    private RedisTemplate<String, String> redisTemplate;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Override
     public void addBookToUserHistory(String username, BookEntity bookEntity) {

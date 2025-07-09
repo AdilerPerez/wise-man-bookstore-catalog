@@ -6,11 +6,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class JwtResponse {
+public class JwtResponseDTO {
     private String accessToken;
     private String tokenType = "Bearer";
 
-    public JwtResponse(String accessToken) {
+    public JwtResponseDTO(String accessToken) {
         this.accessToken = accessToken;
     }
 }

@@ -5,6 +5,7 @@ import com.bookstore.catalog.repository.BookRepository;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -23,12 +24,13 @@ public class BookDataImporter implements CommandLineRunner {
     public static final int LINES_TO_SAVE = 6810;
     private final BookRepository bookRepository;
 
+    @Autowired
     public BookDataImporter(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         if (bookRepository.count() == 0) {
             log.info("Database is empty. Starting data load...");
             loadBookDataFromCsv();
@@ -52,7 +54,7 @@ public class BookDataImporter implements CommandLineRunner {
         }
     }
 
-    private void processCSVLines(String[] line, List<BookEntity> booksToSave) {
+    void processCSVLines(String[] line, List<BookEntity> booksToSave) {
         try {
             booksToSave.add(createBookEntity(line));
 
