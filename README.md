@@ -11,8 +11,6 @@
 - [Explicação sobre o Case Desenvolvido (Plano de Implementação)](#ii-explicação-sobre-o-case-desenvolvido-plano-de-implementação)  
 - [Melhorias e Considerações Finais](#iii-melhorias-e-considerações-finais)  
 - [Como Executar](#como-executar)  
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)  
-- [Licença](#licença)  
 
 ---
 
