@@ -53,8 +53,7 @@ Nesta seção será apresentado o desenho da solução implementada, as tecnolog
       - /books/{id}
       - /books/author/{author}
       - /books/genre/{genre}
-      e para armazenar dados de livros vistos recentemente no endpoint:
-       - /books/user/recently-viewed
+      - /books/user/recently-viewed
 - **Escolha do Kaggle como solução de aquisição de dados**: O data set [books-dataset](https://www.kaggle.com/datasets/abdallahwagih/books-dataset) foi escolhido com base na qualidade de dados que o mesmo possui. Por ter o ISBN(International Standard Book Number) é requisito para o enriquecimento do banco de dados futuro, tendo em base que a busca do OpenLibraryAPI utiliza o mesmo como parameter.
 - **Gerenciamento de dependências**: Maven  
 - **Estrutura de Pastas**: 
@@ -74,17 +73,19 @@ Nesta seção será apresentado o desenho da solução implementada, as tecnolog
 
 Para a implementação do projeto, diversas decisões técnicas foram tomadas.
 
-    1. Carga de Dados:
-    A carga inicial de dados foi realizada a partir do dataset [books-dataset](https://www.kaggle.com/datasets/abdallahwagih/books-dataset). A escolha se deu por ele conter as informações essenciais para a solução (gênero, título e autor) e, crucialmente, o ISBN (International Standard Book Number). A inclusão do ISBN foi um fator que facilitou a futura integração com a OpenLibrary API, planejada para enriquecer o banco de dados com informações de livros faltantes.
+  1. **Carga de Dados**:
+  A carga inicial de dados foi realizada a partir do dataset [books-dataset](https://www.kaggle.com/datasets/abdallahwagih/books-dataset). A escolha se deu por ele conter as informações essenciais para a solução (gênero, título e autor) e, crucialmente, o ISBN (International Standard Book Number). A inclusão do ISBN foi um fator que facilitou a futura integração com a OpenLibrary API, planejada para enriquecer o banco de dados com informações de livros faltantes.
 
-    2. Banco de Dados:
-    Como banco de dados, o MongoDB foi selecionado devido à sua alta performance e à flexibilidade que oferece para tratar a estrutura de dados dos livros.
+  2. **Banco de Dados**:
+  Como banco de dados, o MongoDB foi selecionado devido à sua alta performance e à flexibilidade que oferece para tratar a estrutura de dados dos livros.
 
-    3. Cache e Performance:
-    Para o gerenciamento de cache, optou-se pelo Redis com o objetivo principal de diminuir a latência e aumentar a disponibilidade dos dados. Sua estrutura de chave-valor também se mostrou ideal para facilitar a construção do endpoint de "vistos recentemente".
+  3. **Cache e Performance**:
+  Para o gerenciamento de cache, optou-se pelo Redis com o objetivo principal de diminuir a latência e aumentar a disponibilidade dos dados. Sua estrutura de chave-valor também se mostrou ideal para facilitar a construção do endpoint de "vistos recentemente".
 
-    4. Autenticação e Segurança:
-    A implementação de funcionalidades por usuário, como a de "vistos recentemente", tornou a autenticação um requisito funcional. Para atender a essa necessidade, foi escolhida a combinação do Spring Security com tokens JWT (JSON Web Token).
+  4. **Autenticação e Segurança**:
+  A implementação de funcionalidades por usuário, como a de "vistos recentemente", tornou a autenticação um requisito funcional. Para atender a essa necessidade, foi escolhida a combinação do Spring Security com tokens JWT (JSON Web Token).
+
+
 
 
 
