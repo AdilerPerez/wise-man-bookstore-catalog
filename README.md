@@ -10,7 +10,7 @@
 - [Arquitetura de Solução e Arquitetura Técnica](#arquitetura-de-solução-e-arquitetura-técnica)  
 - [Explicação sobre o Case Desenvolvido (Plano de Implementação)](#explicação-sobre-o-case-desenvolvido-plano-de-implementação)  
 - [Melhorias e Considerações Finais](#melhorias-e-considerações-finais)  
-- [Como Executar](#como-executar-o-projeto)  
+- [Como Executar](#Como Executar o projeto)  
 
 ---
 
@@ -169,7 +169,7 @@ A aplicação possui swagger embutido para visualização dos curls e estruturas
 Pré-requisitos:
  - Java 17+ instalado
  - Maven 3.6+ instalado
- - Docker e Docker Compose instalados
+ - Docker e Docker Compose instalados [Docker Windows install](https://docs.docker.com/desktop/setup/install/windows-install/)
  - Git para clonar o repositório
 
  1. Clonar o repository
