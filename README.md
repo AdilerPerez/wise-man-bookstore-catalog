@@ -203,7 +203,7 @@ Pré-requisitos:
   ```bash
     cd wise-man-bookstore-catalog
     mvn spring-boot:build
-    mvn spring-boot:run
+    mvn spring-boot:run -Dspring-boot.run.profiles=dev
    ```
 3. Acesse a documentação em `http://localhost:8080/wise-man-bookstore-catalog/swagger-ui/index.html`
 
