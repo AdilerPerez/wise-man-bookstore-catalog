@@ -10,7 +10,7 @@
 - [Arquitetura de Solução e Arquitetura Técnica](#arquitetura-de-solução-e-arquitetura-técnica)  
 - [Explicação sobre o Case Desenvolvido (Plano de Implementação)](#explicação-sobre-o-case-desenvolvido-plano-de-implementação)  
 - [Melhorias e Considerações Finais](#melhorias-e-considerações-finais)  
-- [Como Executar](#Como Executar o projeto)  
+- [Como Executar](#como-executar-o-projeto)  
 
 ---
 
