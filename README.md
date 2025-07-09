@@ -87,7 +87,7 @@ Para a implementação do projeto, diversas decisões técnicas foram tomadas.
 
 
 
-
+**Considerações importantes**: Para que o livro seja armazenado no histórico de vistos recentemente, é necessário realizar a chamada passando o JWT Token do usuário.
 
 ### 1. Endpoints Principais  
 | Método | Rota                   | Descrição                                    |
@@ -108,12 +108,12 @@ Para a implementação do projeto, diversas decisões técnicas foram tomadas.
 | `/api/v1/books/author/{author}`    | page=0, size=10           | Paginação por autor|
 
 
-### 2. Lógica de Negócio  
+### 3. Lógica de Negócio  
 - Autenticação: verificação de credenciais, emissão e validação de token.  
 - Busca de livros: consultas de livros.  
 - Histórico: histórico de livros visualizados pelo usuário.
 
-### 3. Estrutura de Dados  
+### 4. Estrutura de Dados  
 
 A aplicação possui swagger embutido para visualização dos curls e estruturas de dados, para acessa-lo basta bater no seguinte endpoint:
 [Swagger Doc](http://localhost:8080/wise-man-bookstore-catalog/swagger-ui/index.html) após a execução da aplicação.
