@@ -74,7 +74,7 @@ Nesta seção será apresentado o desenho da solução implementada, as tecnolog
 Para a implementação do projeto, diversas decisões técnicas foram tomadas.
 
   1. **Carga de Dados**:
-  A carga inicial de dados foi realizada a partir do dataset [books-dataset](https://www.kaggle.com/datasets/abdallahwagih/books-dataset). A escolha se deu por ele conter as informações essenciais para a solução (gênero, título e autor) e, crucialmente, o ISBN (International Standard Book Number). A inclusão do ISBN foi um fator que facilitou a futura integração com a OpenLibrary API, planejada para enriquecer o banco de dados com informações de livros faltantes.
+  A carga inicial de dados foi realizada a partir do dataset [books-dataset](https://www.kaggle.com/datasets/abdallahwagih/books-dataset). A escolha se deu por ele conter as informações essenciais para a solução (gênero, título e autor) e, crucialmente, o ISBN (International Standard Book Number).
 
   2. **Banco de Dados**:
   Como banco de dados, o MongoDB foi selecionado devido à sua alta performance e à flexibilidade que oferece para tratar a estrutura de dados dos livros.
