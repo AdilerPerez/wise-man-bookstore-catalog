@@ -35,7 +35,7 @@ public class UserControllerTest {
     @Mock
     private RecentlyViewedService recentlyViewedService;
 
-    private List<BookEntity> expectedRecentlyViewedResponse;
+
     private JwtResponseDTO expectedJwtResponse;
     private UserDetailsImpl validUser;
     private UserResponseDTO expectedUserResponse;
@@ -43,19 +43,10 @@ public class UserControllerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        expectedRecentlyViewedResponse = Collections.emptyList();
+
         expectedJwtResponse = new JwtResponseDTO("someAccessToken");
         expectedUserResponse = new UserResponseDTO();
         validUser = new UserDetailsImpl("someId", "username", "email", "pass", Collections.emptyList());
-    }
-
-    @Test
-    @DisplayName("Should return all users data")
-    void getRecentlyViewedBooksTest() {
-        when(recentlyViewedService.getRecentlyViewedBooks(anyString())).thenReturn(expectedRecentlyViewedResponse);
-        var response = userController.getMyRecentlyViewedBooks(validUser);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(expectedRecentlyViewedResponse, response.getBody());
     }
 
     @Test

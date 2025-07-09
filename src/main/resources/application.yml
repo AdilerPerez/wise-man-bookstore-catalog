@@ -16,3 +16,22 @@ jwt:
   secret: "u8Jk3v9Q2pLz6xY1sB4eT7wV0nHcR5mZqD1fG8aKjL2oP3sU"
   expiration: 3600000
   refresh-token-expiration: 604800000
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    resolve-schema-properties: true
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    display-request-duration: true
+
+logging:
+  level:
+    org.springdoc: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.data.mongodb: DEBUG
+    org.mongodb: DEBUG
+    org.springframework.boot.autoconfigure: DEBUG
+    org.springframework.boot.web.servlet.context: DEBUG
+    com.bookstore.catalog.exception: DEBUG
